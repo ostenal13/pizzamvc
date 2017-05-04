@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>John's JSP Pizza Order</title>
+        <title>Alyssa's JSP Pizza Order</title>
         <link rel="stylesheet" href="mystyle.css">
     </head>
     <body>
@@ -20,16 +20,34 @@
         <p>Size = ${myOrder.size}</p>
         <p>Toppings: 
             <%
-                // Checkboxes from a form may or may not be checked. We can use the
-                // following code to get an array of the values that are checked.
-                PizzaOrder po = (PizzaOrder) request.getAttribute("myOrder");
-                if (po.getToppings() != null && po.getToppings().length != 0) {
-                    for (String myTopping : po.getToppings()) {
-                        out.println(myTopping + ", ");
-                    }
-                } else {
-                    out.println(" no toppings were requested");
+                double total=0;
+            String size = request.getParameter("size");
+            
+            switch(size)
+            {
+                case "large":
+                    total +=7;
+                    break;
+                case "medium":
+                    total += 6;
+                    break;
+                case "small":
+                    total += 5;
+                    break;
+            }
+ 
+            String toppings[] = request.getParameterValues("toppings");
+            if (toppings != null && toppings.length != 0)
+            {
+                out.println("<p>Toppings: ");
+                for (String myTopping : toppings)
+                {   total+=0.75;
+                    out.println(myTopping + ", ");
                 }
+                out.println("<p>");
+                out.println("Your total is: " + total);
+                out.println("<p>");
+            }
             %>
         </p>
         <p><a href='home.html'>Return to home page</a></p>
