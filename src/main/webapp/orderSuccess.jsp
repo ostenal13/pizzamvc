@@ -20,8 +20,9 @@
         <p>Size = ${myOrder.size}</p>
         <p>Toppings: 
             <%
-                double total=0;
+              double total=0;
             String size = request.getParameter("size");
+            String style = request.getParameter("style");
             
             switch(size)
             {
@@ -33,6 +34,15 @@
                     break;
                 case "small":
                     total += 5;
+                    break;
+            }
+            switch(style)
+            {
+                case "pan":
+                    total += 1;
+                    break;
+                case "hand-tossed":
+                    total += 0.5;
                     break;
             }
  
